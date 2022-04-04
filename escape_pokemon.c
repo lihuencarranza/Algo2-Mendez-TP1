@@ -4,6 +4,9 @@
 
 int main(int argc, char *argv[])
 {
+	if(argc != 3)
+			return -1;
+	
 	//Los archivos deben venir como parámetros del main
 	sala_t *sala = sala_crear_desde_archivos(argv[1], argv[2]);
 
@@ -26,5 +29,10 @@ int main(int argc, char *argv[])
 
 	sala_destruir(sala);
 
+	free(sala);
+
 	return 0;
 }
+
+//gcc ./escape_pokemon.c ./src/*.c ./src/*.h -o pokemon -std=c99 -Wall -Wconversion -Werror -lm
+//valgrind ./pokemon ./ejemplo/objetos.txt ./ejemplo/interacciones.txt 
