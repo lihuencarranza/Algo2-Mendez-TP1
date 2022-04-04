@@ -1,9 +1,20 @@
 #include "estructuras.h"
 #include "sala.h"
+#include <stdio.h>
 #include <stdlib.h>
+
+
 
 sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones)
 {
+	FILE *arch_objetos = fopen(objetos, "r");
+	FILE *arch_interacciones = fopen(interacciones, "r");
+	if(!arch_objetos || !arch_interacciones){
+		perror("No se pudieron abrir los archivos\n");
+		return NULL;
+	}
+
+
 	return NULL;
 }
 
