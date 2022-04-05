@@ -1,16 +1,34 @@
 #include "objeto.h"
 #include "estructuras.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
 
 #define LECTURA_OBJETOS "%[^;];%[^;];%[^;];\n"
+#define FALSE 'false'
+#define TRUE 'true'
+#define MAX_BOOL 6
 
-//NOMBRE_OBJETO;VERBO;NOMBRE_OBJETO2;ACCION
-//if(OBJETO2 != '_' => TIPO_ACCION:NOMBRE_OBJETO:MENSAJE
-
-
-//d para descubrir objetos, r para reemplazar objetos, e para eliminar objetos y m para mostrar un mensaje.
 
 struct objeto *objeto_crear_desde_string(const char *string)
 {
-	return NULL;
+	struct objeto *objeto = malloc(sizeof(objeto));
+	if(objeto == NULL){
+		free(objeto);
+		return NULL;
+	}
+
+	char buleano[MAX_BOOL];
+
+	sscanf(string, LECTURA_OBJETOS, objeto->nombre, objeto->descripcion, buleano);
+
+	if(buleano[0] == 'f'){
+		objeto->es_asible = false;
+	}else if(buleano[0] == 't'){
+		objeto->es_asible = true;
+	}
+
+	return objeto;
+
 }
