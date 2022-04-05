@@ -36,6 +36,8 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 	if(sala == NULL){
 		printf("No se reservó memoria para sala\n");
 		return NULL;
+	} else{
+		printf("Se creó sala\n");
 	}
 
 	

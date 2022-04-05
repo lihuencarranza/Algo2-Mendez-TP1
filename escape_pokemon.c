@@ -4,20 +4,22 @@
 
 int main(int argc, char *argv[])
 {
-	if(argc != 3)
-			return -1;
 	
 	//Los archivos deben venir como parámetros del main
 	sala_t *sala = sala_crear_desde_archivos(argv[1], argv[2]);
-
+	
 	if (sala == NULL) {
 		printf("Error al crear la sala de escape\n");
 		return -1;
 	}
 
-	//Mostrar todos los objetos en la sala
-
 	printf("Objetos...\n");
+	/*
+	//Mostrar todos los objetos en la sala
+	for(int i = 0; i < sala->cantidad_objetos; i++){
+		printf("objeto %i tiene nombre %s y es %s\n", i, sala->objetos[i]->nombre, sala->objetos[i].descripcion);
+	}
+	*/
 
 	//Mostrar si son válidas las siguientes interacciones
 	//1. examinar habitacion
