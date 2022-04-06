@@ -23,8 +23,6 @@ struct objeto *objeto_crear_desde_string(const char *string)
 
 	sscanf(string, LECTURA_OBJETOS, objeto->nombre, objeto->descripcion, buleano);
 
-	printf("El objeto tiene nombre '%s', su descripcion es '%s'\n", objeto->nombre, objeto->descripcion);
-
 	if(buleano[0] == 'f'){
 		objeto->es_asible = false;
 	}else if(buleano[0] == 't'){

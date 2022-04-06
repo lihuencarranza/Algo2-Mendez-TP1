@@ -52,18 +52,10 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 		printf("Se creó la sala\n"); //sacar
 	}
 
-	sala->objetos = malloc(sizeof(struct objeto*));
-	if(sala->objetos == NULL){
-		printf("No se creó el **objetos\n"); //sacar
-		return NULL;
-	}
+	sala->objetos = NULL;
 
-	int *tamanio_objetos = malloc(sizeof(int));
-	if(tamanio_objetos == NULL)
-		return NULL;
+	int tamanio_objetos = 0;
 
-	
-	
 	char *string = malloc(LINEA * sizeof(char));
 	if(string == NULL)
 		return NULL;
@@ -72,26 +64,26 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 
 	if(elemento_leido != 1)
 		return NULL;
-		
-	struct objeto *objeto_auxiliar = NULL;
 
+	struct objeto *objeto_auxiliar;
+	struct objeto **aux;
 	
 	while(elemento_leido == 1){
-		
+
 		objeto_auxiliar = objeto_crear_desde_string(string);
 
-		if(objeto_auxiliar == NULL){
-			printf("No se creó objeto auxiliar\n"); //sacar
+		aux = realloc(sala->objetos, (((long unsigned int)(tamanio_objetos)+1) * sizeof(struct objeto*)));;
+		if(aux == NULL)
 			return NULL;
-		}
 
-		sala->objetos = realloc(sala->objetos, ((long unsigned int)(*tamanio_objetos)+1) * sizeof(struct objeto*));
+		aux[tamanio_objetos] = objeto_auxiliar;
+		tamanio_objetos++;
+		sala->objetos = aux;
 
-		sala->objetos[*tamanio_objetos] = objeto_auxiliar;
-		(*tamanio_objetos)++;
 		elemento_leido = fscanf(arch_objetos, "%[^\n]\n", string);
 		
 	}
+	printf("%i\n", tamanio_objetos);
 	
 	fclose(arch_objetos);
 	fclose(arch_interacciones);
@@ -133,3 +125,6 @@ bool sala_es_interaccion_valida(sala_t *sala, const char *verbo, const char *obj
 void sala_destruir(sala_t *sala)
 {
 }
+
+
+//= realloc(sala->objetos, (((long unsigned int)(tamanio_objetos)+1) * sizeof(struct objeto)));
