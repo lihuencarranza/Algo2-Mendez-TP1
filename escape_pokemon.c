@@ -13,9 +13,12 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	printf("Objetos...\n");
-	/*
 	//Mostrar todos los objetos en la sala
+	printf("Objetos...\n");
+	
+	
+	/*
+	
 	for(int i = 0; i < sala->cantidad_objetos; i++){
 		printf("objeto %i tiene nombre %s y es %s\n", i, sala->objetos[i]->nombre, sala->objetos[i].descripcion);
 	}
