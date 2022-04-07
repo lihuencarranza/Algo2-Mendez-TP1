@@ -83,7 +83,10 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 		elemento_leido = fscanf(arch_objetos, "%[^\n]\n", string);
 		
 	}
-	printf("%i\n", tamanio_objetos);
+
+	sala->cantidad_objetos = tamanio_objetos;
+
+	free(string);
 	
 	fclose(arch_objetos);
 	fclose(arch_interacciones);
@@ -104,7 +107,25 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
  */
 char **sala_obtener_nombre_objetos(sala_t *sala, int *cantidad)
 {
-	return NULL;
+	
+	*cantidad = sala->cantidad_objetos;
+
+	char **string = malloc((long unsigned int) ((*cantidad)+1) * sizeof(char*));
+	if(string == NULL){
+		*cantidad = -1;
+		return NULL;
+	}	
+	
+	char *nombre; 
+	
+	for(int i = 0; i < *cantidad; i++){
+		nombre = malloc(LINEA * sizeof(char));
+		strcpy(nombre, sala->objetos[i]->nombre);
+		string[i] = nombre;		
+	}
+
+	return string;
+
 }
 
 /*

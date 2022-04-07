@@ -13,6 +13,9 @@
 
 struct objeto *objeto_crear_desde_string(const char *string)
 {
+	if(string == NULL)
+		return NULL;
+
 	struct objeto *objeto = malloc(sizeof(struct objeto));
 
 	if(objeto == NULL){
@@ -21,8 +24,11 @@ struct objeto *objeto_crear_desde_string(const char *string)
 
 	char buleano[MAX_BOOL];
 
-	sscanf(string, LECTURA_OBJETOS, objeto->nombre, objeto->descripcion, buleano);
+	int elementos_leidos = sscanf(string, LECTURA_OBJETOS, objeto->nombre, objeto->descripcion, buleano);
 
+	if(elementos_leidos != 3)
+		return NULL;
+	
 	if(buleano[0] == 'f'){
 		objeto->es_asible = false;
 	}else if(buleano[0] == 't'){

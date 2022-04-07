@@ -5,6 +5,7 @@
 int main(int argc, char *argv[])
 {
 	
+	
 	//Los archivos deben venir como parámetros del main
 	sala_t *sala = sala_crear_desde_archivos(argv[1], argv[2]);
 	
@@ -12,17 +13,21 @@ int main(int argc, char *argv[])
 		printf("Error al crear la sala de escape\n");
 		return -1;
 	}
+	
 
 	//Mostrar todos los objetos en la sala
+	int cantidad;
+
+	char **string = sala_obtener_nombre_objetos(sala, &cantidad);
+
 	printf("Objetos...\n");
-	
-	
-	/*
-	
-	for(int i = 0; i < sala->cantidad_objetos; i++){
-		printf("objeto %i tiene nombre %s y es %s\n", i, sala->objetos[i]->nombre, sala->objetos[i].descripcion);
+
+	for(int i = 0; i < cantidad; i++){
+		printf("%i: %s\n", i, string[i]);
 	}
-	*/
+		
+
+
 
 	//Mostrar si son válidas las siguientes interacciones
 	//1. examinar habitacion
