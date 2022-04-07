@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
 		printf("Error al crear la sala de escape\n");
 		return -1;
 	}
-	
 
 	//Mostrar todos los objetos en la sala
 	int cantidad;
