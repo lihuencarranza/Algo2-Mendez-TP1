@@ -87,6 +87,21 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 	sala->cantidad_objetos = tamanio_objetos;
 
 	free(string);
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	fclose(arch_objetos);
 	fclose(arch_interacciones);
@@ -94,22 +109,10 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 
 }
 
-/*
- * Devuelve un vector dinámico reservado con malloc que contiene los nombres de
- * todos los objetos existentes en la sala de escape.
- *
- * En la variable cantidad (si no es nula) se guarda el tamanio del vector de
- * nombres.
- *
- * El vector devuelto debe ser liberado con free.
- *
- * En caso de error devuelve NULL y pone cantidad en -1.
- */
+
 char **sala_obtener_nombre_objetos(sala_t *sala, int *cantidad)
 {
-	
 	*cantidad = sala->cantidad_objetos;
-
 	char **string = malloc((long unsigned int) ((*cantidad)+1) * sizeof(char*));
 	if(string == NULL){
 		*cantidad = -1;
@@ -117,7 +120,7 @@ char **sala_obtener_nombre_objetos(sala_t *sala, int *cantidad)
 	}	
 	
 	char *nombre; 
-	
+
 	for(int i = 0; i < *cantidad; i++){
 		nombre = malloc(LINEA * sizeof(char));
 		strcpy(nombre, sala->objetos[i]->nombre);
