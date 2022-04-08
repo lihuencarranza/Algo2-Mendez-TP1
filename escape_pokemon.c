@@ -1,10 +1,15 @@
 #include "src/sala.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#define MAX_NOMBRE 20
+#define MAX_VERBO  20
 
 int main(int argc, char *argv[])
 {
-	
+	if(argc != 3)
+		return -1;
 	
 	//Los archivos deben venir como parámetros del main
 	sala_t *sala = sala_crear_desde_archivos(argv[1], argv[2]);
@@ -15,27 +20,60 @@ int main(int argc, char *argv[])
 	}
 
 	//Mostrar todos los objetos en la sala
-	int cantidad;
+	int cantidad_objetos;
 
-	char **string = sala_obtener_nombre_objetos(sala, &cantidad);
+	char **string = sala_obtener_nombre_objetos(sala, &cantidad_objetos);
 
 	printf("Objetos...\n");
 
-	for(int i = 0; i < cantidad; i++){
+	for(int i = 0; i < cantidad_objetos; i++){
 		printf("%i: %s\n", i, string[i]);
 	}
-		
-
-
-
+	
 	//Mostrar si son válidas las siguientes interacciones
 	//1. examinar habitacion
 	//2. abrir pokebola
 	//3. usar llave cajon
 	//4. quemar mesa
 
-	printf("Interacciones...\n");
+	printf("\nInteracciones...\n");
 
+	int cantidad_interacciones = 4;
+
+	char verbo[cantidad_interacciones][MAX_VERBO];
+	strcpy(verbo[0], "examinar");
+	strcpy(verbo[1], "abrir");
+	strcpy(verbo[2], "usar");
+	strcpy(verbo[3], "quemar");
+
+	char primer_objeto[cantidad_interacciones][MAX_NOMBRE];
+	strcpy(primer_objeto[0], "habitacion");
+	strcpy(primer_objeto[1], "pokebola");
+	strcpy(primer_objeto[2], "llave");
+	strcpy(primer_objeto[3], "mesa");
+
+	char segundo_objeto[cantidad_interacciones][MAX_NOMBRE];
+	strcpy(segundo_objeto[0], "");
+	strcpy(segundo_objeto[1], "");
+	strcpy(segundo_objeto[2], "cajon");
+	strcpy(segundo_objeto[3], "");
+	
+
+	bool es_valida;
+	char *booleano;
+	for(int i = 0; i < cantidad_interacciones; i++){
+		es_valida = sala_es_interaccion_valida(sala, verbo[i], primer_objeto[i], segundo_objeto[i]);
+		if(es_valida  == true){
+			booleano = "Válida";
+		}else{
+			booleano = "Inválido";
+		}
+		printf("%s %s %s = %s\n", verbo[i], primer_objeto[i], segundo_objeto[i], booleano);
+	}
+	
+	
+
+	
 	sala_destruir(sala);
 
 	free(sala);

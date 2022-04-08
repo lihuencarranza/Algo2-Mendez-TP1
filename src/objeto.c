@@ -8,7 +8,7 @@
 #define LECTURA_OBJETOS "%[^;];%[^;];%[^;];\n"
 #define FALSE 'false'
 #define TRUE 'true'
-#define MAX_BOOL 6
+#define MAX_BOOL 7
 
 
 struct objeto *objeto_crear_desde_string(const char *string)
@@ -29,10 +29,13 @@ struct objeto *objeto_crear_desde_string(const char *string)
 	if(elementos_leidos != 3)
 		return NULL;
 	
-	if(buleano[0] == 'f'){
+
+	if(strcmp(buleano, "false") == 0){
 		objeto->es_asible = false;
-	}else if(buleano[0] == 't'){
+	}else if(strcmp(buleano, "true") == 0){
 		objeto->es_asible = true;
+	}else{
+		return NULL;
 	}
 
 	return objeto;
