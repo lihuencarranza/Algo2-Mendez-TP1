@@ -70,13 +70,9 @@ int main(int argc, char *argv[])
 		}
 		printf("%s %s %s = %s\n", verbo[i], primer_objeto[i], segundo_objeto[i], booleano);
 	}
-	
-	
 
-	
 	sala_destruir(sala);
 
-	free(sala);
 
 	return 0;
 }

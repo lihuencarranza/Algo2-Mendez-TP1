@@ -41,7 +41,7 @@ struct interaccion *interaccion_crear_desde_string(const char *string)
 		return NULL;
 
 	struct interaccion *interaccion = malloc(sizeof(struct interaccion));
-	if(interaccion ==NULL)
+	if(interaccion == NULL)
 		return NULL;
 	
 	char letra_accion;
