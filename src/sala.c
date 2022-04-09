@@ -190,15 +190,17 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 
 char **sala_obtener_nombre_objetos(sala_t *sala, int *cantidad)
 {
-	if(sala == NULL)
+	if(sala == NULL){
+		if(cantidad != NULL)
+			*cantidad = -1;	
 		return NULL;
-
-	if(cantidad != NULL)
-		*cantidad = -1;	
+	}
 
 	char **string = malloc(((long unsigned int)(sala->cantidad_objetos)) * sizeof(char*));
 
 	if(string == NULL){
+		if(cantidad != NULL)
+			*cantidad = -1;	
 		free(string);
 		return NULL;
 	}	
@@ -208,7 +210,8 @@ char **sala_obtener_nombre_objetos(sala_t *sala, int *cantidad)
 	for(int i = 0; i < sala->cantidad_objetos; i++){
 		nombre = malloc(MAX_NOMBRE * sizeof(char));
 		if(nombre == NULL){
-			*cantidad = -1;
+			if(cantidad != NULL)
+				*cantidad = -1;	
 			free(string);
 			return NULL;
 		}
@@ -218,10 +221,8 @@ char **sala_obtener_nombre_objetos(sala_t *sala, int *cantidad)
 		nombre = NULL;	
 		free(nombre);
 	}
-
-	
-	
-	
+	if(cantidad != NULL)
+		*cantidad = sala->cantidad_objetos;
 	return string;
 
 }
