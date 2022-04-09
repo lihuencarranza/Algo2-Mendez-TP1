@@ -5,9 +5,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define LECTURA_OBJETOS "%[^;];%[^;];%[^;];\n"
-#define FALSE 'false'
-#define TRUE 'true'
+#define LECTURA_OBJETOS "%[^;];%[^;];%[^\n]\n"
 #define MAX_BOOL 7
 
 
@@ -24,17 +22,18 @@ struct objeto *objeto_crear_desde_string(const char *string)
 
 	char buleano[MAX_BOOL];
 
+	objeto->es_asible = false;
+
 	int elementos_leidos = sscanf(string, LECTURA_OBJETOS, objeto->nombre, objeto->descripcion, buleano);
 
 	if(elementos_leidos != 3)
 		return NULL;
 	
-
-	if(strcmp(buleano, "false") == 0){
-		objeto->es_asible = false;
-	}else if(strcmp(buleano, "true") == 0){
+	if(strcmp(buleano, "true") == 0){
 		objeto->es_asible = true;
-	}else{
+	} else if(strcmp(buleano, "false") == 0){
+		objeto->es_asible = false;
+	} else if(strcmp(buleano, "false") != 0 && strcmp(buleano, "true") != 0){
 		return NULL;
 	}
 

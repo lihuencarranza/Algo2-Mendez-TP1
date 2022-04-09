@@ -20,7 +20,9 @@ int main(int argc, char *argv[])
 	}
 
 	//Mostrar todos los objetos en la sala
-	int cantidad_objetos;
+	
+	int cantidad_objetos = 0;
+	
 
 	char **string = sala_obtener_nombre_objetos(sala, &cantidad_objetos);
 
@@ -28,6 +30,7 @@ int main(int argc, char *argv[])
 
 	for(int i = 0; i < cantidad_objetos; i++){
 		printf("%i: %s\n", i, string[i]);
+		free(string[i]);
 	}
 	
 	//Mostrar si son válidas las siguientes interacciones
@@ -71,6 +74,8 @@ int main(int argc, char *argv[])
 		printf("%s %s %s = %s\n", verbo[i], primer_objeto[i], segundo_objeto[i], booleano);
 	}
 
+	
+	free(string);
 	sala_destruir(sala);
 
 
