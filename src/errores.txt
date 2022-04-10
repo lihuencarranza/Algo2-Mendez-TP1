@@ -1,172 +1,31 @@
-PRUEBAS DE CREACION DE OBJETOS
-✗ "a;b;c" no es un string objeto válido
-
-==630== Conditional jump or move depends on uninitialised value(s)
-==630==    at 0x1099F1: pruebasCrearObjeto (pruebas.c:41)
-==630==    by 0x10B482: main (pruebas.c:168)
-==630==  Uninitialised value was created by a heap allocation
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B613: objeto_crear_desde_string (objeto.c:17)
-==630==    by 0x10988E: pruebasCrearObjeto (pruebas.c:36)
-==630==    by 0x10B482: main (pruebas.c:168)
-==630==        
-
-PRUEBAS VECTOR DE NOMBRES
-✗ Puedo pedir el vector de nombres a la sala pasando cantidad NULL
-
-PRUEBA DE INTERACCIONES 
-
-ERROR MIENTRAS SE EJECUTABA LA PRUEBA: 'No es válido pedir interacciones de una sala NULL'
-
-
-==630== Invalid read of size 4
-==630==    at 0x10BAA8: sala_es_interaccion_valida (sala.c:240)
-==630==    by 0x10AE9F: pruebas_interacciones (pruebas.c:146)
-==630==    by 0x10B4DA: main (pruebas.c:180)
-==630==  Address 0x18 is not stack'd, malloc'd or (recently) free'd
-==630==
-
-
-==630== HEAP SUMMARY:
-==630==     in use at exit: 7,248 bytes in 37 blocks
-==630==   total heap usage: 143 allocs, 106 frees, 57,856 bytes allocated
-==630== 
-==630== 72 bytes in 1 blocks are indirectly lost in loss record 1 of 21
-==630==    at 0x4837D7B: realloc (vg_replace_malloc.c:826)
-==630==    by 0x10B81B: crear_objetos (sala.c:85)
-==630==    by 0x10B952: sala_crear_desde_archivos (sala.c:161)
-==630==    by 0x10A7FF: pruebas_crear_sala (pruebas.c:97)
-==630==    by 0x10B4AE: main (pruebas.c:174)
-==630== 
-==630== 72 bytes in 1 blocks are definitely lost in loss record 2 of 21
-==630==    at 0x4837D7B: realloc (vg_replace_malloc.c:826)
-==630==    by 0x10B81B: crear_objetos (sala.c:85)
-==630==    by 0x10B952: sala_crear_desde_archivos (sala.c:161)
-==630==    by 0x10A869: pruebas_crear_sala (pruebas.c:100)
-==630==    by 0x10B4AE: main (pruebas.c:174)
-==630== 
-==630== 72 bytes in 1 blocks are definitely lost in loss record 3 of 21
-==630==    at 0x4837D7B: realloc (vg_replace_malloc.c:826)
-==630==    by 0x10B81B: crear_objetos (sala.c:85)
-==630==    by 0x10B952: sala_crear_desde_archivos (sala.c:161)
-==630==    by 0x10AB3B: pruebas_nombre_objetos (pruebas.c:116)
-==630==    by 0x10B4C4: main (pruebas.c:177)
-==630== 
-==630== 180 bytes in 9 blocks are definitely lost in loss record 4 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10BA5E: sala_obtener_nombre_objetos (sala.c:217)
-==630==    by 0x10ABC5: pruebas_nombre_objetos (pruebas.c:122)
-==630==    by 0x10B4C4: main (pruebas.c:177)
-==630== 
-==630== 221 bytes in 1 blocks are definitely lost in loss record 5 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B613: objeto_crear_desde_string (objeto.c:17)
-==630==    by 0x1093C4: pruebasCrearObjeto (pruebas.c:14)
-==630==    by 0x10B482: main (pruebas.c:168)
-==630== 
-==630== 221 bytes in 1 blocks are definitely lost in loss record 6 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B613: objeto_crear_desde_string (objeto.c:17)
-==630==    by 0x109436: pruebasCrearObjeto (pruebas.c:16)
-==630==    by 0x10B482: main (pruebas.c:168)
-==630== 
-==630== 221 bytes in 1 blocks are definitely lost in loss record 7 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B613: objeto_crear_desde_string (objeto.c:17)
-==630==    by 0x1094A8: pruebasCrearObjeto (pruebas.c:18)
-==630==    by 0x10B482: main (pruebas.c:168)
-==630== 
-==630== 221 bytes in 1 blocks are definitely lost in loss record 8 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B613: objeto_crear_desde_string (objeto.c:17)
-==630==    by 0x10951A: pruebasCrearObjeto (pruebas.c:20)
-==630==    by 0x10B482: main (pruebas.c:168)
-==630== 
-==630== 221 bytes in 1 blocks are definitely lost in loss record 9 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B613: objeto_crear_desde_string (objeto.c:17)
-==630==    by 0x10958C: pruebasCrearObjeto (pruebas.c:22)
-==630==    by 0x10B482: main (pruebas.c:168)
-==630== 
-==630== 221 bytes in 1 blocks are definitely lost in loss record 10 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B613: objeto_crear_desde_string (objeto.c:17)
-==630==    by 0x1095FE: pruebasCrearObjeto (pruebas.c:24)
-==630==    by 0x10B482: main (pruebas.c:168)
-==630== 
-==630== 221 bytes in 1 blocks are definitely lost in loss record 11 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B613: objeto_crear_desde_string (objeto.c:17)
-==630==    by 0x109670: pruebasCrearObjeto (pruebas.c:26)
-==630==    by 0x10B482: main (pruebas.c:168)
-==630== 
-==630== 284 bytes in 1 blocks are definitely lost in loss record 12 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B536: interaccion_crear_desde_string (interaccion.c:43)
-==630==    by 0x109C60: pruebasCrearInteracciones (pruebas.c:51)
-==630==    by 0x10B498: main (pruebas.c:171)
-==630== 
-==630== 284 bytes in 1 blocks are definitely lost in loss record 13 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B536: interaccion_crear_desde_string (interaccion.c:43)
-==630==    by 0x109CD2: pruebasCrearInteracciones (pruebas.c:53)
-==630==    by 0x10B498: main (pruebas.c:171)
-==630== 
-==630== 284 bytes in 1 blocks are definitely lost in loss record 14 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B536: interaccion_crear_desde_string (interaccion.c:43)
-==630==    by 0x109D44: pruebasCrearInteracciones (pruebas.c:55)
-==630==    by 0x10B498: main (pruebas.c:171)
-==630== 
-==630== 284 bytes in 1 blocks are definitely lost in loss record 15 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B536: interaccion_crear_desde_string (interaccion.c:43)
-==630==    by 0x109DB6: pruebasCrearInteracciones (pruebas.c:57)
-==630==    by 0x10B498: main (pruebas.c:171)
-==630== 
-==630== 284 bytes in 1 blocks are definitely lost in loss record 16 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B536: interaccion_crear_desde_string (interaccion.c:43)
-==630==    by 0x109E28: pruebasCrearInteracciones (pruebas.c:59)
-==630==    by 0x10B498: main (pruebas.c:171)
-==630== 
-==630== 284 bytes in 1 blocks are definitely lost in loss record 17 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B536: interaccion_crear_desde_string (interaccion.c:43)
-==630==    by 0x109E9A: pruebasCrearInteracciones (pruebas.c:61)
-==630==    by 0x10B498: main (pruebas.c:171)
-==630== 
-==630== 552 bytes in 1 blocks are still reachable in loss record 18 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x48BD0FA: __fopen_internal (iofopen.c:65)
-==630==    by 0x10B90A: sala_crear_desde_archivos (sala.c:144)
-==630==    by 0x10A786: pruebas_crear_sala (pruebas.c:94)
-==630==    by 0x10B4AE: main (pruebas.c:174)
-==630== 
-==630== 1,028 bytes in 1 blocks are definitely lost in loss record 19 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B6D2: crear_interacciones (sala.c:20)
-==630==    by 0x10B97F: sala_crear_desde_archivos (sala.c:175)
-==630==    by 0x10A7FF: pruebas_crear_sala (pruebas.c:97)
-==630==    by 0x10B4AE: main (pruebas.c:174)
-==630== 
-==630== 1,989 bytes in 9 blocks are indirectly lost in loss record 20 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B613: objeto_crear_desde_string (objeto.c:17)
-==630==    by 0x10B804: crear_objetos (sala.c:83)
-==630==    by 0x10B952: sala_crear_desde_archivos (sala.c:161)
-==630==    by 0x10A7FF: pruebas_crear_sala (pruebas.c:97)
-==630==    by 0x10B4AE: main (pruebas.c:174)
-==630== 
-==630== 2,093 (32 direct, 2,061 indirect) bytes in 1 blocks are definitely lost in loss record 21 of 21
-==630==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==630==    by 0x10B92B: sala_crear_desde_archivos (sala.c:150)
-==630==    by 0x10A7FF: pruebas_crear_sala (pruebas.c:97)
-==630==    by 0x10B4AE: main (pruebas.c:174)
-==630== 
-==630== LEAK SUMMARY:
-==630==    definitely lost: 4,635 bytes in 26 blocks
-==630==    indirectly lost: 2,061 bytes in 10 blocks
-==630==      possibly lost: 0 bytes in 0 blocks
-==630==    still reachable: 552 bytes in 1 blocks
-==630==         suppressed: 0 bytes in 0 blocks
+ FALTAN 10 frees
+ 
+  
+ HEAP SUMMARY:
+     in use at exit: 2,061 bytes in 10 blocks
+   total heap usage: 170 allocs, 160 frees, 66,165 bytes allocated
+ 
+ 1,989 bytes in 9 blocks are indirectly lost in loss record 1 of 2
+    at 0x483577F: malloc (vg_replace_malloc.c:299)
+    by 0x10B61B: objeto_crear_desde_string (objeto.c:17)
+    by 0x10B7DC: crear_objetos (sala.c:75)
+    by 0x10B94C: sala_crear_desde_archivos (sala.c:149)
+    by 0x10A7FF: pruebas_crear_sala (pruebas.c:97)
+    by 0x10B4AE: main (pruebas.c:174)
+ 
+ 2,061 (72 direct, 1,989 indirect) bytes in 1 blocks are definitely lost in loss record 2 of 2
+    at 0x4837D7B: realloc (vg_replace_malloc.c:826)
+    by 0x10B7F8: crear_objetos (sala.c:80)
+    by 0x10B94C: sala_crear_desde_archivos (sala.c:149)
+    by 0x10A7FF: pruebas_crear_sala (pruebas.c:97)
+    by 0x10B4AE: main (pruebas.c:174)
+ 
+ LEAK SUMMARY:
+    definitely lost: 72 bytes in 1 blocks
+    indirectly lost: 1,989 bytes in 9 blocks
+      possibly lost: 0 bytes in 0 blocks
+    still reachable: 0 bytes in 0 blocks
+         suppressed: 0 bytes in 0 blocks
+ 
+ For counts of detected and suppressed errors, rerun with: -v
+ ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

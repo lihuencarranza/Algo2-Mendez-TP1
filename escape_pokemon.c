@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
 	if(argc != 3)
 		return -1;
 	
-	//Los archivos deben venir como parámetros del main
 	sala_t *sala = sala_crear_desde_archivos(argv[1], argv[2]);
 	
 	if (sala == NULL) {
@@ -30,8 +29,8 @@ int main(int argc, char *argv[])
 
 	for(int i = 0; i < cantidad_objetos; i++){
 		printf("%i: %s\n", i, string[i]);
-		free(string[i]);
 	}
+	free(string);
 	
 	//Mostrar si son válidas las siguientes interacciones
 	//1. examinar habitacion
@@ -74,8 +73,6 @@ int main(int argc, char *argv[])
 		printf("%s %s %s = %s\n", verbo[i], primer_objeto[i], segundo_objeto[i], booleano);
 	}
 
-	
-	free(string);
 	sala_destruir(sala);
 
 

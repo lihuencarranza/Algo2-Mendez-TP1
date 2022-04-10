@@ -50,8 +50,11 @@ struct interaccion *interaccion_crear_desde_string(const char *string)
 	
 	int elementos_leidos = sscanf(string, LECTURA_INTERACCIONES, interaccion->objeto, interaccion->verbo, objeto_2_aux, &letra_accion, accion_objeto, interaccion->accion.mensaje);
 
-	if(elementos_leidos != 6)
+	if(elementos_leidos != 6){
+		free(interaccion);
 		return NULL;
+	}
+		
 	
 	
 	if(strcmp(objeto_2_aux, "_") == 0)
