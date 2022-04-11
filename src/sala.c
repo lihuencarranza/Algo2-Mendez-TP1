@@ -6,41 +6,56 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define LINEA 1028
+#define MAX_LINEA 1028
 #define ERROR -1
 
+
+/*
+ * Cierra los archivos recibidos
+ */
 void cerrar_archivos(FILE *arch_objetos, FILE *arch_interacciones)
 {
 	fclose(arch_objetos);
 	fclose(arch_interacciones);
 }
 
+/*
+ * Crea un string para guardar una linea del archivo de interacciones recibidos
+ * 
+ * Luego de leer, verifica que el elemento se haya leido y no esté vacío
+ * 
+ * Se creará una interaccion por cada linea bien leida del archivo
+ * 
+ * El caso de que un objeto no se pueda crear o el vector de punteros a punteros de interacciones
+ * no pueda ampliarse, se devolverá error (-1)
+ * 
+ */
 int crear_interacciones(sala_t *sala, int *tamanio_interacciones, FILE *arch_interacciones)
 {
-	char string_interaccion[LINEA];
+	char string_interaccion[MAX_LINEA];
 	
 	int elemento_leido = fscanf(arch_interacciones, "%[^\n]\n", string_interaccion);
 
-	if(elemento_leido != 1)
+	if (elemento_leido != 1)
 		return ERROR;
 	
-		
-
 	struct interaccion *interaccion_aux;
 	struct interaccion **interacciones_aux;
 
-	while(elemento_leido == 1){
+	while (elemento_leido == 1){
 
 		interaccion_aux = interaccion_crear_desde_string(string_interaccion);
-		if(interaccion_aux == NULL)
+		if (interaccion_aux == NULL)
 			return ERROR;			
 
 		interacciones_aux = realloc(sala->interacciones, (((long unsigned int)(*tamanio_interacciones)+1) * sizeof(struct interaccion*)));
-		if(interacciones_aux == NULL)
+		if (interacciones_aux == NULL)
 			return ERROR;
 			
 		interacciones_aux[*tamanio_interacciones] = interaccion_aux;
+
 		(*tamanio_interacciones)++;
+
 		sala->interacciones = interacciones_aux;
 
 		elemento_leido = fscanf(arch_interacciones, "%[^\n]\n", string_interaccion);
@@ -49,54 +64,61 @@ int crear_interacciones(sala_t *sala, int *tamanio_interacciones, FILE *arch_int
 
 	sala->cantidad_interacciones = *tamanio_interacciones;
 
-	if(sala->interacciones == NULL)
+	if (sala->interacciones == NULL)
 		return ERROR;
 
 	return 0;
 }
 
+/*
+ * Crea un string para guardar una linea del archivo de objetos recibidos
+ * 
+ * Luego de leer, verifica que el elemento se haya leido y no esté vacío
+ * 
+ * Se creará un objeto por cada linea bien leida del archivo
+ * 
+ * El caso de que un objeto no se pueda crear o el vector de punteros a punteros de objetos
+ * no pueda ampliarse, se devolverá error (-1)
+ * 
+ */
 int crear_objetos(sala_t *sala, int *tamanio_objetos, FILE *arch_objetos)
 {
-	
-	char string_objeto[LINEA];
+	char string_objeto[MAX_LINEA];
 
 	int elemento_leido = fscanf(arch_objetos, "%[^\n]\n", string_objeto);
 
-	if(elemento_leido != 1){
+	if (elemento_leido != 1)
 		return ERROR;
-	}	
-
+		
 	struct objeto *objeto_auxiliar;
 	struct objeto **objetos_aux;
 	
-	while(elemento_leido == 1){
+	while (elemento_leido == 1){
 
 		objeto_auxiliar = objeto_crear_desde_string(string_objeto);
-		if(objeto_auxiliar == NULL)
+		if (objeto_auxiliar == NULL)
 			return ERROR;
 
 		objetos_aux = realloc(sala->objetos, (((long unsigned int)(*tamanio_objetos)+1) * sizeof(struct objeto*)));
-		if(objetos_aux == NULL){
+		if (objetos_aux == NULL){
 			free(objeto_auxiliar);
 			return ERROR;
 		}
 	
 		objetos_aux[*tamanio_objetos] = objeto_auxiliar;
+
 		(*tamanio_objetos)++;
 		sala->objetos = objetos_aux;
-
 		elemento_leido = fscanf(arch_objetos, "%[^\n]\n", string_objeto);	
 	}
 	
 	sala->cantidad_objetos = (*tamanio_objetos);
 	
-	if(sala->objetos == NULL){
-		
+	if (sala->objetos == NULL){
 		free(objeto_auxiliar);
 		free(objetos_aux);
 		return ERROR;
-	}
-		
+	}	
 
 	return 0;
 }
@@ -111,16 +133,16 @@ int crear_objetos(sala_t *sala, int *tamanio_objetos, FILE *arch_objetos)
 */
 int verificar_apertura_archivos(FILE *arch_objetos, FILE *arch_interacciones)
 {
-	if(arch_objetos == NULL && arch_interacciones == NULL){
+	if (arch_objetos == NULL && arch_interacciones == NULL){
 		printf("No se pudo abrir ningun archivo\n");
 		return ERROR;
 	}
-	if(arch_objetos == NULL){
+	if (arch_objetos == NULL){
 		printf("No se pudo abrir el archivo de objetos\n");
 		fclose(arch_interacciones);
 		return ERROR;
 	}
-	if(arch_interacciones == NULL){
+	if (arch_interacciones == NULL){
 		printf("No se pudo abrir el archivo de interacciones\n");
 		fclose(arch_objetos);
 		return ERROR;
@@ -128,19 +150,16 @@ int verificar_apertura_archivos(FILE *arch_objetos, FILE *arch_interacciones)
 	return 0;
 }
 
-
 sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones)
 {
-
 	FILE *arch_objetos = fopen(objetos, "r");
 	FILE *arch_interacciones = fopen(interacciones, "r");
 
-	if(verificar_apertura_archivos(arch_objetos, arch_interacciones) == -1)
+	if (verificar_apertura_archivos(arch_objetos, arch_interacciones) == -1)
 		return NULL;
-	
 
 	sala_t *sala = malloc(sizeof(sala_t));	
-	if(sala == NULL){
+	if (sala == NULL){
 		printf("No se reservó memoria para sala\n");
 		cerrar_archivos(arch_objetos, arch_interacciones);
 		return NULL;
@@ -150,21 +169,18 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 	
 	int tamanio_objetos = 0;
 	
-	if(crear_objetos(sala, &tamanio_objetos, arch_objetos) == -1){
+	if (crear_objetos(sala, &tamanio_objetos, arch_objetos) == -1){
 		for(int i = 0; i < sala->cantidad_objetos; i++)
 			free(sala->objetos[i]);
 		free(sala->objetos);	
 		free(sala);
 		cerrar_archivos(arch_objetos, arch_interacciones);
 		return NULL;
-	}	
-
-	
+	}
 		
-	if(sala->objetos == NULL){
-		for(int i = 0; i < sala->cantidad_objetos; i++)
+	if (sala->objetos == NULL){
+		for (int i = 0; i < sala->cantidad_objetos; i++)
 			free(sala->objetos[i]);
-		free(sala->objetos);
 		free(sala);
 		cerrar_archivos(arch_objetos, arch_interacciones);
 		return NULL;
@@ -174,8 +190,8 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 
 	int tamanio_interacciones = 0;
 
-	if(crear_interacciones(sala, &tamanio_interacciones, arch_interacciones) == -1){
-		for(int i = 0; i < sala->cantidad_objetos; i++)
+	if (crear_interacciones(sala, &tamanio_interacciones, arch_interacciones) == -1){
+		for (int i = 0; i < sala->cantidad_objetos; i++)
 			free(sala->objetos[i]);
 		free(sala->objetos);
 		free(sala->interacciones);
@@ -185,11 +201,12 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 	}
 		
 	if(sala->interacciones == NULL){
-		for(int i = 0; i < sala->cantidad_objetos; i++)
+		for (int i = 0; i < sala->cantidad_objetos; i++)
 			free(sala->objetos[i]);
 		free(sala->objetos);
-		for(int i = 0; i < sala->cantidad_interacciones; i++)	
+		for (int i = 0; i < sala->cantidad_interacciones; i++)	
 			free(sala->interacciones[i]);
+		free(sala->objetos);
 		free(sala);
 		cerrar_archivos(arch_objetos, arch_interacciones);
 		return NULL;
@@ -203,7 +220,7 @@ sala_t *sala_crear_desde_archivos(const char *objetos, const char *interacciones
 
 char **sala_obtener_nombre_objetos(sala_t *sala, int *cantidad)
 {
-	if(sala == NULL){
+	if (sala == NULL){
 		if(cantidad != NULL)
 			*cantidad = -1;	
 		return NULL;
@@ -211,45 +228,40 @@ char **sala_obtener_nombre_objetos(sala_t *sala, int *cantidad)
 
 	char **string = malloc(((long unsigned int)(sala->cantidad_objetos)) * sizeof(char*));
 
-	if(string == NULL){
-		if(cantidad != NULL)
+	if (string == NULL){
+		if (cantidad != NULL)
 			*cantidad = -1;	
-		free(string);
 		return NULL;
 	}	
 
-	for(int i = 0; i < sala->cantidad_objetos; i++)				
+	for (int i = 0; i < sala->cantidad_objetos; i++)				
 		string[i] = sala->objetos[i]->nombre;
 
-	
-
-
-	if(cantidad != NULL)
+	if (cantidad != NULL)
 		*cantidad = sala->cantidad_objetos;
 		
 	return string;
 
 }
 
-
 bool sala_es_interaccion_valida(sala_t *sala, const char *verbo, const char *objeto1, const char *objeto2)
 {
-	if(sala == NULL || sala->interacciones == NULL || verbo == NULL || objeto1 == NULL || objeto2 == NULL)
+	if (sala == NULL || sala->interacciones == NULL || verbo == NULL || objeto1 == NULL || objeto2 == NULL)
 		return NULL;
 	
 	int contador = 0;
 
-	for(int i = 0; i < sala->cantidad_interacciones; i++){
-		if(strcmp(sala->interacciones[i]->verbo, verbo) == 0)
+	for (int i = 0; i < sala->cantidad_interacciones; i++){
+		if (strcmp(sala->interacciones[i]->verbo, verbo) == 0)
 			contador++;
 
-		if(strcmp(sala->interacciones[i]->objeto, objeto1) == 0)
+		if (strcmp(sala->interacciones[i]->objeto, objeto1) == 0)
 			contador++;
 
-		if(strcmp(sala->interacciones[i]->objeto_parametro, objeto2) == 0)
+		if (strcmp(sala->interacciones[i]->objeto_parametro, objeto2) == 0)
 			contador++;
 
-		if(contador == 3)
+		if (contador == 3)
 			return true;
 		
 		contador = 0;
@@ -258,20 +270,18 @@ bool sala_es_interaccion_valida(sala_t *sala, const char *verbo, const char *obj
 	return false;
 }
 
-
 void sala_destruir(sala_t *sala)
 {
-	for(int i = 0; i < sala->cantidad_objetos; i++){
+	for (int i = 0; i < sala->cantidad_objetos; i++){
 		free(sala->objetos[i]);
 		
 	}
 
-	for(int i = 0; i < sala->cantidad_interacciones; i++){
+	for (int i = 0; i < sala->cantidad_interacciones; i++){
 		free(sala->interacciones[i]);
 		
 	}
 
-	
 	free(sala->interacciones);
 	free(sala->objetos);
 		

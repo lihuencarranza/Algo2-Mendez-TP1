@@ -37,11 +37,11 @@ enum tipo_accion definir_tipo_de_accion(char letra_accion){
 
 struct interaccion *interaccion_crear_desde_string(const char *string)
 {
-	if(string == NULL)
+	if (string == NULL)
 		return NULL;
 
 	struct interaccion *interaccion = malloc(sizeof(struct interaccion));
-	if(interaccion == NULL)
+	if (interaccion == NULL)
 		return NULL;
 	
 	char letra_accion;
@@ -50,19 +50,17 @@ struct interaccion *interaccion_crear_desde_string(const char *string)
 	
 	int elementos_leidos = sscanf(string, LECTURA_INTERACCIONES, interaccion->objeto, interaccion->verbo, objeto_2_aux, &letra_accion, accion_objeto, interaccion->accion.mensaje);
 
-	if(elementos_leidos != 6){
+	if (elementos_leidos != 6){
 		free(interaccion);
 		return NULL;
 	}
-		
 	
-	
-	if(strcmp(objeto_2_aux, "_") == 0)
+	if (strcmp(objeto_2_aux, "_") == 0)
 		strcpy(objeto_2_aux, "");
 
 	strcpy(interaccion->objeto_parametro, objeto_2_aux);
 
-	if(strcmp(accion_objeto, "_") == 0)
+	if (strcmp(accion_objeto, "_") == 0)
 		strcpy(accion_objeto, "");
 
 	strcpy(interaccion->accion.objeto, accion_objeto);

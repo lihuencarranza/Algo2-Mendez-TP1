@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[])
 {
-	if(argc != 3)
+	if (argc != 3)
 		return -1;
 	
 	sala_t *sala = sala_crear_desde_archivos(argv[1], argv[2]);
@@ -18,8 +18,6 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	//Mostrar todos los objetos en la sala
-	
 	int cantidad_objetos = 0;
 	
 
@@ -27,16 +25,10 @@ int main(int argc, char *argv[])
 
 	printf("Objetos...\n");
 
-	for(int i = 0; i < cantidad_objetos; i++){
+	for (int i = 0; i < cantidad_objetos; i++){
 		printf("%i: %s\n", i, string[i]);
 	}
 	free(string);
-	
-	//Mostrar si son válidas las siguientes interacciones
-	//1. examinar habitacion
-	//2. abrir pokebola
-	//3. usar llave cajon
-	//4. quemar mesa
 
 	printf("\nInteracciones...\n");
 
@@ -60,10 +52,9 @@ int main(int argc, char *argv[])
 	strcpy(segundo_objeto[2], "cajon");
 	strcpy(segundo_objeto[3], "");
 	
-
 	bool es_valida;
 	char *booleano;
-	for(int i = 0; i < cantidad_interacciones; i++){
+	for (int i = 0; i < cantidad_interacciones; i++){
 		es_valida = sala_es_interaccion_valida(sala, verbo[i], primer_objeto[i], segundo_objeto[i]);
 		if(es_valida  == true){
 			booleano = "Válida";
@@ -74,7 +65,6 @@ int main(int argc, char *argv[])
 	}
 
 	sala_destruir(sala);
-
 
 	return 0;
 }
